@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <widget class="QPushButton" name="btn_start">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>200</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>start</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_stop">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>330</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>stop</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_ctrl">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>250</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ctrl</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_browser">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>150</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>browser</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lab_display">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>70</y>
+     <width>360</width>
+     <height>240</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DISPLAY</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_display">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>290</y>
+     <width>80</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>display</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
