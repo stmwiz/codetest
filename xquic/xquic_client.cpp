@@ -1,5 +1,7 @@
 #include "xquic_client.hpp"
 
+namespace TEST_XQUIC_CLIENT {
+
 /**
  * @copyright Copyright (c) 2022, Alibaba Group Holding Limited
  */
@@ -2358,7 +2360,7 @@ static int test_main(int argc, char *argv[]) {
     return 0;
 }
 
-
+}
 
 XQuicClient::XQuicClient()
 {
