@@ -10,7 +10,7 @@ TestImpl::TestImpl()
 
 TestImpl::~TestImpl()
 {
-    stop();
+    TestImpl::stop();
 }
 
 void TestImpl::start(const std::string&url)

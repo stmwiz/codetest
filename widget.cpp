@@ -6,14 +6,13 @@
 #include <QImage>
 
 #include "test_impl.hpp"
-#include "test_skia.hpp"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    test_ = std::make_shared<TestSkia>();
+    test_ = std::make_shared<TestImpl>();
 }
 
 Widget::~Widget()
@@ -47,7 +46,6 @@ void Widget::on_btn_ctrl_clicked()
     });
 
 }
-
 
 void Widget::on_btn_display_clicked()
 {
