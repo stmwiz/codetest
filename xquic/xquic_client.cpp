@@ -2374,5 +2374,9 @@ XQuicClient::~XQuicClient()
 
 void XQuicClient::run()
 {
-    const char *arg[] = {"./",""};
+    const int argc = 3;
+    char *argv[3] = {"./tmp",""};
+    TEST_XQUIC_CLIENT::test_main(argc,argv);
+
 }
+

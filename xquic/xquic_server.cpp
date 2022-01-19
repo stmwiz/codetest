@@ -1521,5 +1521,7 @@ XQuicServer::~XQuicServer()
 
 void XQuicServer::run()
 {
-
+    const int argc = 3;
+    char *argv[3] = {"./",""};
+    TEST_XQUIC_SERVER::test_main(argc,argv);
 }
