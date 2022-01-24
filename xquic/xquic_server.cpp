@@ -3,6 +3,7 @@
 
 namespace TEST_XQUIC_SERVER {
 
+#include <stdio.h>
 
 /**
  * @copyright Copyright (c) 2022, Alibaba Group Holding Limited
@@ -260,7 +261,7 @@ xqc_server_stream_send(xqc_stream_t *stream, void *user_data)
     }
 
     if (g_test_case == 12 /* test linger close */
-        && user_stream->send_offset == user_stream->send_body_len)
+            && user_stream->send_offset == user_stream->send_body_len)
     {
         user_conn_t *user_conn = (user_conn_t *)xqc_get_conn_user_data_by_stream(stream);
         xqc_conn_close(ctx.engine, &user_conn->cid);
@@ -411,7 +412,7 @@ xqc_server_h3_conn_handshake_finished(xqc_h3_conn_t *h3_conn, void *conn_user_da
 
 void
 xqc_server_h3_conn_update_cid_notify(xqc_h3_conn_t *h3_conn, const xqc_cid_t *retire_cid,
-    const xqc_cid_t *new_cid, void *conn_user_data)
+                                     const xqc_cid_t *new_cid, void *conn_user_data)
 {
     DEBUG;
 
@@ -554,7 +555,7 @@ xqc_server_request_send(xqc_h3_request_t *h3_request, user_stream_t *user_stream
     }
 
     if (g_test_case == 12 /* test linger close */
-        && user_stream->send_offset == user_stream->send_body_len)
+            && user_stream->send_offset == user_stream->send_body_len)
     {
         user_conn_t *user_conn = (user_conn_t *)xqc_h3_get_conn_user_data_by_request(h3_request);
         xqc_h3_conn_close(ctx.engine, &user_conn->cid);
@@ -685,6 +686,7 @@ xqc_server_request_read_notify(xqc_h3_request_t *h3_request, xqc_request_notify_
         } while (read > 0 && !fin);
 
         printf("xqc_h3_request_recv_body read:%zd, offset:%zu, fin:%d\n", read_sum, user_stream->recv_body_len, fin);
+
     }
 
     if (flag & XQC_REQ_NOTIFY_READ_EMPTY_FIN) {
@@ -703,8 +705,8 @@ xqc_server_request_read_notify(xqc_h3_request_t *h3_request, xqc_request_notify_
 
 ssize_t
 xqc_server_write_socket(const unsigned char *buf, size_t size,
-    const struct sockaddr *peer_addr,
-    socklen_t peer_addrlen, void *user_data)
+                        const struct sockaddr *peer_addr,
+                        socklen_t peer_addrlen, void *user_data)
 {
     user_conn_t *user_conn = (user_conn_t*)user_data; //user_data may be empty when "reset" is sent
     ssize_t res;
@@ -771,7 +773,7 @@ xqc_server_write_socket(const unsigned char *buf, size_t size,
 
 ssize_t
 xqc_server_send_stateless_reset(const unsigned char *buf, size_t size,
-    const struct sockaddr *peer_addr, socklen_t peer_addrlen, int fd, void *user)
+                                const struct sockaddr *peer_addr, socklen_t peer_addrlen, int fd, void *user)
 {
     return xqc_server_write_socket(buf, size, peer_addr, peer_addrlen, user);
 }
@@ -1141,8 +1143,8 @@ xqc_keylog_cb(const char *line, void *user_data)
 
 #if defined(XQC_SUPPORT_SENDMMSG)
 ssize_t xqc_server_write_mmsg(const struct iovec *msg_iov, unsigned int vlen,
-                                const struct sockaddr *peer_addr,
-                                socklen_t peer_addrlen, void *user)
+                              const struct sockaddr *peer_addr,
+                              socklen_t peer_addrlen, void *user)
 {
     printf("write_mmsg!\n");
     const int MAX_SEG = 128;
@@ -1185,24 +1187,24 @@ void usage(int argc, char *argv[]) {
         prog = slash + 1;
     }
     printf(
-"Usage: %s [Options]\n"
-"\n"
-"Options:\n"
-"   -p    Server port.\n"
-"   -e    Echo. Send received body.\n"
-"   -c    Congestion Control Algorithm. r:reno b:bbr c:cubic B:bbr2 bbr+ bbr2+\n"
-"   -C    Pacing on.\n"
-"   -s    Body size to send.\n"
-"   -w    Write received body to file.\n"
-"   -r    Read sending body from file. priority e > s > r\n"
-"   -l    Log level. e:error d:debug.\n"
-"   -u    Url. default https://test.xquic.com/path/resource\n"
-"   -x    Test case ID\n"
-"   -6    IPv6\n"
-"   -b    batch\n"
-"   -S    server sid\n"
-"   -o    Output log file path, default ./slog\n"
-, prog);
+                "Usage: %s [Options]\n"
+                "\n"
+                "Options:\n"
+                "   -p    Server port.\n"
+                "   -e    Echo. Send received body.\n"
+                "   -c    Congestion Control Algorithm. r:reno b:bbr c:cubic B:bbr2 bbr+ bbr2+\n"
+                "   -C    Pacing on.\n"
+                "   -s    Body size to send.\n"
+                "   -w    Write received body to file.\n"
+                "   -r    Read sending body from file. priority e > s > r\n"
+                "   -l    Log level. e:error d:debug.\n"
+                "   -u    Url. default https://test.xquic.com/path/resource\n"
+                "   -x    Test case ID\n"
+                "   -6    IPv6\n"
+                "   -b    batch\n"
+                "   -S    server sid\n"
+                "   -o    Output log file path, default ./slog\n"
+                , prog);
 }
 
 
@@ -1240,7 +1242,7 @@ static int test_main(int argc, char *argv[]) {
                 c_cong_ctl = 'B';
             }
             if (strncmp("bbr2+", optarg, 5) == 0
-                || strncmp("bbr+", optarg, 4) == 0)
+                    || strncmp("bbr+", optarg, 4) == 0)
             {
                 c_cong_plus = 1;
             }
@@ -1414,7 +1416,7 @@ static int test_main(int argc, char *argv[]) {
 #if defined(XQC_SUPPORT_SENDMMSG)
     if (g_batch) {
         tcbs.write_mmsg = xqc_server_write_mmsg,
-        config.sendmmsg_on = 1;
+                config.sendmmsg_on = 1;
     }
 #endif
 
@@ -1441,10 +1443,10 @@ static int test_main(int argc, char *argv[]) {
             .h3_conn_handshake_finished = xqc_server_h3_conn_handshake_finished,
         },
         .h3r_cbs = {
-            .h3_request_write_notify = xqc_server_request_write_notify,
-            .h3_request_read_notify = xqc_server_request_read_notify,
             .h3_request_create_notify = xqc_server_request_create_notify,
             .h3_request_close_notify = xqc_server_request_close_notify,
+            .h3_request_read_notify = xqc_server_request_read_notify,
+            .h3_request_write_notify = xqc_server_request_write_notify,
         }
     };
 
@@ -1456,8 +1458,8 @@ static int test_main(int argc, char *argv[]) {
             .conn_handshake_finished = xqc_server_conn_handshake_finished,
         },
         .stream_cbs = {
-            .stream_write_notify = xqc_server_stream_write_notify,
             .stream_read_notify = xqc_server_stream_read_notify,
+            .stream_write_notify = xqc_server_stream_write_notify,
             .stream_create_notify = xqc_server_stream_create_notify,
             .stream_close_notify = xqc_server_stream_close_notify,
         }
@@ -1516,12 +1518,12 @@ XQuicServer::XQuicServer()
 
 XQuicServer::~XQuicServer()
 {
-
+    TestImpl::stop();
 }
 
 void XQuicServer::run()
 {
-    const int argc = 3;
-    char *argv[3] = {"./",""};
+    const int argc = 5;
+    char *argv[argc] = {"./tmp", "-p","6666","-w","out.flv"};
     TEST_XQUIC_SERVER::test_main(argc,argv);
 }

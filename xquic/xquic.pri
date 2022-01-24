@@ -3,11 +3,11 @@ DEPENDPATH += $$PWD
 
 message(  $$PWD )
 
-DEFINS +=
 
 HEADERS += \
     $$PWD/xquic_client.hpp \
     $$PWD/xquic_head.hpp \
+    $$PWD/xquic_send_recv.hpp \
     $$PWD/xquic_server.hpp
 
 DISTFILES += \
@@ -21,4 +21,5 @@ LIBS += -levent -lgcov -lm -ldl
 
 SOURCES += \
     $$PWD/xquic_client.cpp \
+    $$PWD/xquic_send_recv.cpp \
     $$PWD/xquic_server.cpp

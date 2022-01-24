@@ -30,13 +30,21 @@ private slots:
 
     void pic_show(const uchar *data, int width, int height);
 
+    void on_btn_server_clicked();
+
+    void on_btn_clinet_clicked();
+
+    void on_btn_snd_rcv_clicked();
+
 private:
     const QString open_file_browser();
 
 private:
     Ui::Widget *ui;
-
-    std::shared_ptr<TestInterface> test_ = nullptr;
-
     QString url_;
+    std::shared_ptr<TestInterface> test_ = nullptr;
+    std::shared_ptr<TestInterface> xquic_svr_ = nullptr;
+    std::shared_ptr<TestInterface> xquic_cli_ = nullptr;
+    std::shared_ptr<TestInterface> xquic_sr_ = nullptr;
+
 };

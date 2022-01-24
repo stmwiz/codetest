@@ -4,8 +4,13 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QImage>
+#include <QEventLoop>
+#include <thread>
 
 #include "test_impl.hpp"
+#include "xquic_client.hpp"
+#include "xquic_server.hpp"
+#include "xquic_send_recv.hpp"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -71,4 +76,31 @@ void Widget::pic_show(const uint8_t *data, int width, int height)
 }
 
 
+
+void Widget::on_btn_server_clicked()
+{
+    qDebug() << __FUNCTION__;
+    xquic_svr_ = nullptr;
+    xquic_svr_ = std::make_shared<XQuicServer>();
+    xquic_svr_->start("");
+}
+
+
+void Widget::on_btn_clinet_clicked()
+{
+    qDebug() << __FUNCTION__;
+    xquic_cli_ = nullptr;
+    xquic_cli_ = std::make_shared<XQuicClient>();
+    xquic_cli_->start("");
+}
+
+
+
+void Widget::on_btn_snd_rcv_clicked()
+{
+    qDebug() << __FUNCTION__;
+    xquic_sr_ = nullptr;
+    xquic_sr_ = std::make_shared<XQuicSR>();
+    xquic_sr_->start("");
+}
 

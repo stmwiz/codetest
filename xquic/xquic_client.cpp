@@ -305,7 +305,7 @@ end:
 int g_send_total = 0;
 ssize_t
 xqc_client_write_socket(const unsigned char *buf, size_t size,
-    const struct sockaddr *peer_addr, socklen_t peer_addrlen, void *user)
+                        const struct sockaddr *peer_addr, socklen_t peer_addrlen, void *user)
 {
     user_conn_t *user_conn = (user_conn_t *) user;
     ssize_t res = 0;
@@ -378,7 +378,7 @@ xqc_client_write_socket(const unsigned char *buf, size_t size,
 
 ssize_t
 xqc_client_send_stateless_reset(const unsigned char *buf, size_t size,
-    const struct sockaddr *peer_addr, socklen_t peer_addrlen, int fd, void *user)
+                                const struct sockaddr *peer_addr, socklen_t peer_addrlen, int fd, void *user)
 {
     return xqc_client_write_socket(buf, size, peer_addr, peer_addrlen, user);
 }
@@ -387,7 +387,7 @@ xqc_client_send_stateless_reset(const unsigned char *buf, size_t size,
 #if defined(XQC_SUPPORT_SENDMMSG)
 ssize_t
 xqc_client_write_mmsg(const struct iovec *msg_iov, unsigned int vlen,
-    const struct sockaddr *peer_addr, socklen_t peer_addrlen, void *user)
+                      const struct sockaddr *peer_addr, socklen_t peer_addrlen, void *user)
 {
     const int MAX_SEG = 128;
     user_conn_t *user_conn = (user_conn_t *) user;
@@ -423,7 +423,7 @@ xqc_client_write_mmsg(const struct iovec *msg_iov, unsigned int vlen,
 
 static int
 xqc_client_create_socket(int type,
-    const struct sockaddr *saddr, socklen_t saddr_len)
+                         const struct sockaddr *saddr, socklen_t saddr_len)
 {
     int size;
     int fd = -1;
@@ -471,8 +471,8 @@ err:
 
 void
 xqc_convert_addr_text_to_sockaddr(int type,
-    const char *addr_text, unsigned int port,
-    struct sockaddr **saddr, socklen_t *saddr_len)
+                                  const char *addr_text, unsigned int port,
+                                  struct sockaddr **saddr, socklen_t *saddr_len)
 {
     if (type == AF_INET6) {
         *saddr = (struct sockaddr *)calloc(1, sizeof(struct sockaddr_in6));
@@ -496,7 +496,7 @@ xqc_convert_addr_text_to_sockaddr(int type,
 
 void
 xqc_client_init_addr(user_conn_t *user_conn,
-    const char *server_addr, int server_port)
+                     const char *server_addr, int server_port)
 {
     int ip_type = (g_ipv6 ? AF_INET6 : AF_INET);
     xqc_convert_addr_text_to_sockaddr(ip_type,
@@ -519,7 +519,7 @@ xqc_client_init_addr(user_conn_t *user_conn,
 
 static int
 xqc_client_bind_to_interface(int fd,
-    const char *interface_name)
+                             const char *interface_name)
 {
     struct ifreq ifr;
     memset(&ifr, 0x00, sizeof(ifr));
@@ -540,7 +540,7 @@ xqc_client_bind_to_interface(int fd,
 
 static int
 xqc_client_create_path_socket(xqc_user_path_t *path,
-    char *path_interface)
+                              char *path_interface)
 {
     path->path_fd = xqc_client_create_socket((g_ipv6 ? AF_INET6 : AF_INET),
                                              path->peer_addr, path->peer_addrlen);
@@ -550,7 +550,7 @@ xqc_client_create_path_socket(xqc_user_path_t *path,
     }
 
     if (path_interface != NULL
-        && xqc_client_bind_to_interface(path->path_fd, path_interface) < 0)
+            && xqc_client_bind_to_interface(path->path_fd, path_interface) < 0)
     {
         printf("|xqc_client_bind_to_interface error|");
         return XQC_ERROR;
@@ -562,7 +562,7 @@ xqc_client_create_path_socket(xqc_user_path_t *path,
 
 static int
 xqc_client_create_path(xqc_user_path_t *path,
-    char *path_interface, user_conn_t *user_conn)
+                       char *path_interface, user_conn_t *user_conn)
 {
     path->path_id = 0;
 
@@ -576,7 +576,7 @@ xqc_client_create_path(xqc_user_path_t *path,
     }
 
     path->ev_socket = event_new(eb, path->path_fd,
-                EV_READ | EV_PERSIST, xqc_client_socket_event_callback, user_conn);
+                                EV_READ | EV_PERSIST, xqc_client_socket_event_callback, user_conn);
     event_add(path->ev_socket, NULL);
 
     return XQC_OK;
@@ -585,7 +585,7 @@ xqc_client_create_path(xqc_user_path_t *path,
 
 user_conn_t *
 xqc_client_user_conn_create(const char *server_addr, int server_port,
-    int transport)
+                            int transport)
 {
     user_conn_t *user_conn = (user_conn_t *)calloc(1, sizeof(user_conn_t));
 
@@ -931,7 +931,7 @@ xqc_client_stream_read_notify(xqc_stream_t *stream, void *user_data)
         user_stream->recv_fin = 1;
         xqc_msec_t now_us = now();
         printf("\033[33m>>>>>>>> request time cost:%" PRIu64" us, speed:%" PRIu64" K/s \n"
-               ">>>>>>>> send_body_size:%zu, recv_body_size:%zu \033[0m\n",
+                                                                                 ">>>>>>>> send_body_size:%zu, recv_body_size:%zu \033[0m\n",
                now_us - user_stream->start_time,
                (user_stream->send_body_len + user_stream->recv_body_len)*1000/(now_us - user_stream->start_time),
                user_stream->send_body_len, user_stream->recv_body_len);
@@ -964,7 +964,7 @@ xqc_client_stream_close_notify(xqc_stream_t *stream, void *user_data)
         printf("user_stream->recv_fin:%d, user_stream->send_body_len:%zu, user_stream->recv_body_len:%zd\n",
                user_stream->recv_fin, user_stream->send_body_len, user_stream->recv_body_len);
         if (user_stream->recv_fin && user_stream->send_body_len == user_stream->recv_body_len
-            && memcmp(user_stream->send_body, user_stream->recv_body, user_stream->send_body_len) == 0) {
+                && memcmp(user_stream->send_body, user_stream->recv_body, user_stream->send_body_len) == 0) {
             pass = 1;
         }
         printf(">>>>>>>> pass:%d\n", pass);
@@ -1167,8 +1167,8 @@ xqc_client_request_send(xqc_h3_request_t *h3_request, user_stream_t *user_stream
 
     int header_only = g_is_get;
     if (g_is_get) {
-         header[0].value.iov_base = (void*)"GET";
-         header[0].value.iov_len = sizeof("GET") - 1;
+        header[0].value.iov_base = (void*)"GET";
+        header[0].value.iov_len = sizeof("GET") - 1;
     }
 
     /* send header */
@@ -1453,7 +1453,7 @@ xqc_client_request_read_notify(xqc_h3_request_t *h3_request, xqc_request_notify_
         stats = xqc_h3_request_get_stats(h3_request);
         xqc_msec_t now_us = now();
         printf("\033[33m>>>>>>>> request time cost:%" PRIu64" us, speed:%" PRIu64" K/s \n"
-               ">>>>>>>> send_body_size:%zu, recv_body_size:%zu \033[0m\n",
+                                                                                 ">>>>>>>> send_body_size:%zu, recv_body_size:%zu \033[0m\n",
                now_us - user_stream->start_time,
                (stats.send_body_size + stats.recv_body_size)*1000/(now_us - user_stream->start_time),
                stats.send_body_size, stats.recv_body_size);
@@ -1493,7 +1493,7 @@ xqc_client_request_close_notify(xqc_h3_request_t *h3_request, void *user_data)
     if (g_echo_check) {
         int pass = 0;
         if (user_stream->recv_fin && user_stream->send_body_len == user_stream->recv_body_len
-            && memcmp(user_stream->send_body, user_stream->recv_body, user_stream->send_body_len) == 0) {
+                && memcmp(user_stream->send_body, user_stream->recv_body, user_stream->send_body_len) == 0) {
             pass = 1;
         }
         printf(">>>>>>>> pass:%d\n", pass);
@@ -1523,7 +1523,7 @@ void
 xqc_client_socket_write_handler(user_conn_t *user_conn)
 {
     DEBUG
-    xqc_conn_continue_send(ctx.engine, &user_conn->cid);
+            xqc_conn_continue_send(ctx.engine, &user_conn->cid);
 }
 
 
@@ -1643,7 +1643,7 @@ xqc_client_socket_read_handler(user_conn_t *user_conn)
 
         if (g_test_case == 9) { /* duplicate packet */
             memcpy(copy, packet_buf, recv_size);
-            again:;
+again:;
         }
 
         if (g_test_case == 10) { /* illegal packet */
@@ -1877,7 +1877,7 @@ xqc_keylog_cb(const char *line, void *user_data)
 
 int
 xqc_client_cert_verify(const unsigned char *certs[],
-    const size_t cert_len[], size_t certs_len, void *conn_user_data)
+                       const size_t cert_len[], size_t certs_len, void *conn_user_data)
 {
     /* self-signed cert used in test cases, return >= 0 means success */
     return 0;
@@ -1891,35 +1891,35 @@ void usage(int argc, char *argv[]) {
         prog = slash + 1;
     }
     printf(
-"Usage: %s [Options]\n"
-"\n"
-"Options:\n"
-"   -a    Server addr.\n"
-"   -p    Server port.\n"
-"   -P    Number of Parallel requests per single connection. Default 1.\n"
-"   -n    Total number of requests to send. Defaults 1.\n"
-"   -c    Congestion Control Algorithm. r:reno b:bbr c:cubic B:bbr2 bbr+ bbr2+\n"
-"   -C    Pacing on.\n"
-"   -t    Connection timeout. Default 3 seconds.\n"
-"   -T    Transport layer. No HTTP3.\n"
-"   -1    Force 1RTT.\n"
-"   -s    Body size to send.\n"
-"   -w    Write received body to file.\n"
-"   -r    Read sending body from file. priority s > r\n"
-"   -l    Log level. e:error d:debug.\n"
-"   -E    Echo check on. Compare sent data with received data.\n"
-"   -d    Drop rate ‰.\n"
-"   -u    Url. default https://test.xquic.com/path/resource\n"
-"   -H    Header. eg. key:value\n"
-"   -h    Host & sni. eg. test.xquic.com\n"
-"   -G    GET on. Default is POST\n"
-"   -x    Test case ID\n"
-"   -N    No encryption\n"
-"   -6    IPv6\n"
-"   -V    Force cert verification. 0: don't allow self-signed cert. 1: allow self-signed cert.\n"
-"   -q    name-value pair num of request header, default and larger than 6\n"
-"   -o    Output log file path, default ./clog\n"
-, prog);
+                "Usage: %s [Options]\n"
+                "\n"
+                "Options:\n"
+                "   -a    Server addr.\n"
+                "   -p    Server port.\n"
+                "   -P    Number of Parallel requests per single connection. Default 1.\n"
+                "   -n    Total number of requests to send. Defaults 1.\n"
+                "   -c    Congestion Control Algorithm. r:reno b:bbr c:cubic B:bbr2 bbr+ bbr2+\n"
+                "   -C    Pacing on.\n"
+                "   -t    Connection timeout. Default 3 seconds.\n"
+                "   -T    Transport layer. No HTTP3.\n"
+                "   -1    Force 1RTT.\n"
+                "   -s    Body size to send.\n"
+                "   -w    Write received body to file.\n"
+                "   -r    Read sending body from file. priority s > r\n"
+                "   -l    Log level. e:error d:debug.\n"
+                "   -E    Echo check on. Compare sent data with received data.\n"
+                "   -d    Drop rate ‰.\n"
+                "   -u    Url. default https://test.xquic.com/path/resource\n"
+                "   -H    Header. eg. key:value\n"
+                "   -h    Host & sni. eg. test.xquic.com\n"
+                "   -G    GET on. Default is POST\n"
+                "   -x    Test case ID\n"
+                "   -N    No encryption\n"
+                "   -6    IPv6\n"
+                "   -V    Force cert verification. 0: don't allow self-signed cert. 1: allow self-signed cert.\n"
+                "   -q    name-value pair num of request header, default and larger than 6\n"
+                "   -o    Output log file path, default ./clog\n"
+                , prog);
 }
 
 static int test_main(int argc, char *argv[]) {
@@ -1975,7 +1975,7 @@ static int test_main(int argc, char *argv[]) {
             }
 
             if (strncmp("bbr2+", optarg, 5) == 0
-                || strncmp("bbr+", optarg, 4) == 0)
+                    || strncmp("bbr+", optarg, 4) == 0)
             {
                 c_cong_plus = 1;
             }
@@ -2374,8 +2374,8 @@ XQuicClient::~XQuicClient()
 
 void XQuicClient::run()
 {
-    const int argc = 3;
-    char *argv[3] = {"./tmp",""};
+    const int argc = 7;
+    char *argv[argc] = {"./tmp","-a","127.0.0.1", "-p","6666","-r","in.flv"};
     TEST_XQUIC_CLIENT::test_main(argc,argv);
 
 }
