@@ -130,6 +130,16 @@
     <string>send_recv</string>
    </property>
   </widget>
+  <widget class="QLineEdit" name="lin_input">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>570</y>
+     <width>161</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

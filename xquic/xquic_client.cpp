@@ -1227,9 +1227,9 @@ xqc_client_request_send(xqc_h3_request_t *h3_request, user_stream_t *user_stream
         fin = 0;
     }
 
-    if (user_stream->send_body) {
-        memset(user_stream->send_body, 0, user_stream->send_body_len);
-    }
+//    if (user_stream->send_body) {
+//        memset(user_stream->send_body, 0, user_stream->send_body_len);
+//    }
 
     /* send body */
     if (user_stream->send_offset < user_stream->send_body_len) {
@@ -2375,7 +2375,7 @@ XQuicClient::~XQuicClient()
 void XQuicClient::run()
 {
     const int argc = 7;
-    char *argv[argc] = {"./tmp","-a","127.0.0.1", "-p","6666","-r","in.flv"};
+    char *argv[argc] = {"./tmp","-a","172.30.220.72", "-p","6666","-r","in.flv"};
     TEST_XQUIC_CLIENT::test_main(argc,argv);
 
 }

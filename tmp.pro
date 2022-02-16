@@ -35,3 +35,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 #include($$PWD/ffmpeg/ffmpeg.pri)
 #include($$PWD/webrtc/webrtc.pri)
 include($$PWD/xquic/xquic.pri)
+include($$PWD/gst/gst.pri)

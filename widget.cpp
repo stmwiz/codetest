@@ -38,8 +38,13 @@ void Widget::on_btn_browser_clicked()
 
 void Widget::on_btn_start_clicked()
 {
+//    qDebug() << __FUNCTION__;
+//    test_->start(url_.toStdString());
+
     qDebug() << __FUNCTION__;
-    test_->start(url_.toStdString());
+    gstwebrtc_sr_ = nullptr;
+    gstwebrtc_sr_ = std::make_shared<TestGstWebrtcSendRecv>(ui->lin_input->text().toInt());
+    gstwebrtc_sr_->start("");
 }
 
 void Widget::on_btn_ctrl_clicked()
@@ -62,8 +67,10 @@ void Widget::on_btn_display_clicked()
 
 void Widget::on_btn_stop_clicked()
 {
+//    qDebug() << __FUNCTION__;
+//    test_->stop();
     qDebug() << __FUNCTION__;
-    test_->stop();
+    gstwebrtc_sr_ = nullptr;
 }
 
 void Widget::pic_show(const uint8_t *data, int width, int height)
