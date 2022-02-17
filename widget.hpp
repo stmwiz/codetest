@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "test_interface.hpp"
-#include "test_gst_webrtc_send_recv.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -47,6 +46,5 @@ private:
     std::shared_ptr<TestInterface> xquic_svr_ = nullptr;
     std::shared_ptr<TestInterface> xquic_cli_ = nullptr;
     std::shared_ptr<TestInterface> xquic_sr_ = nullptr;
-
-    std::shared_ptr<TestGstWebrtcSendRecv> gstwebrtc_sr_ = nullptr;
+    std::shared_ptr<TestInterface> gstwebrtc_sr_ = nullptr;
 };

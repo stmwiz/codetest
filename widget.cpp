@@ -11,6 +11,8 @@
 #include "xquic_client.hpp"
 #include "xquic_server.hpp"
 #include "xquic_send_recv.hpp"
+#include "test_gst_webrtc_send_recv.hpp"
+
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)

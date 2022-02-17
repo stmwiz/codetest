@@ -20,9 +20,9 @@ public:
 
     virtual void stop() override;
 
-    virtual void on_show(OnShowFuncType) override {};
+    virtual void on_show(OnShowFuncType) override {}
 
-    virtual void on_ctrl(OnCtrlFuncType) override {};
+    virtual void on_ctrl(OnCtrlFuncType) override {}
 
 protected:
     virtual void run();
