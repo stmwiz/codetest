@@ -12,7 +12,7 @@
 #include "xquic_server.hpp"
 #include "xquic_send_recv.hpp"
 #include "test_gst_webrtc_send_recv.hpp"
-
+#include "test_gst_webrtc_recv.hpp"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -43,10 +43,15 @@ void Widget::on_btn_start_clicked()
 //    qDebug() << __FUNCTION__;
 //    test_->start(url_.toStdString());
 
-    qDebug() << __FUNCTION__;
-    gstwebrtc_sr_ = nullptr;
-    gstwebrtc_sr_ = std::make_shared<TestGstWebrtcSendRecv>(ui->lin_input->text().toInt());
-    gstwebrtc_sr_->start("");
+//    qDebug() << __FUNCTION__;
+//    gstwebrtc_sr_ = nullptr;
+//    gstwebrtc_sr_ = std::make_shared<TestGstWebrtcSendRecv>(ui->lin_input->text().toInt());
+//    gstwebrtc_sr_->start("");
+
+        qDebug() << __FUNCTION__;
+        gstwebrtc_r_ = nullptr;
+        gstwebrtc_r_ = std::make_shared<TestGstWebrtcRecv>(ui->lin_input->text().toInt());
+        gstwebrtc_r_->start("");
 }
 
 void Widget::on_btn_ctrl_clicked()
@@ -71,8 +76,10 @@ void Widget::on_btn_stop_clicked()
 {
 //    qDebug() << __FUNCTION__;
 //    test_->stop();
-    qDebug() << __FUNCTION__;
-    gstwebrtc_sr_ = nullptr;
+//    qDebug() << __FUNCTION__;
+//    gstwebrtc_sr_ = nullptr;
+      qDebug() << __FUNCTION__;
+      gstwebrtc_r_ = nullptr;
 }
 
 void Widget::pic_show(const uint8_t *data, int width, int height)

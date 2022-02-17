@@ -2,12 +2,12 @@
 
 #include "test_impl.hpp"
 
-class TestGstWebrtcSendRecv: public TestImpl
+class TestGstWebrtcRecv: public TestImpl
 {
 public:
-    TestGstWebrtcSendRecv(int peer_id);
+    TestGstWebrtcRecv(int peer_id);
 
-    ~TestGstWebrtcSendRecv();
+    ~TestGstWebrtcRecv();
 protected:
     virtual void run() override;
     int peer_id_;

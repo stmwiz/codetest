@@ -34,7 +34,9 @@ LIBS += -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lgstsdp-1.0 \
 
 
 HEADERS += \
+    $$PWD/test_gst_webrtc_recv.hpp \
     $$PWD/test_gst_webrtc_send_recv.hpp
 
 SOURCES += \
+    $$PWD/test_gst_webrtc_recv.cpp \
     $$PWD/test_gst_webrtc_send_recv.cpp

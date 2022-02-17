@@ -47,4 +47,6 @@ private:
     std::shared_ptr<TestInterface> xquic_cli_ = nullptr;
     std::shared_ptr<TestInterface> xquic_sr_ = nullptr;
     std::shared_ptr<TestInterface> gstwebrtc_sr_ = nullptr;
+    std::shared_ptr<TestInterface> gstwebrtc_r_ = nullptr;
+
 };
